@@ -160,7 +160,15 @@ extension SettingsViewController {
 extension SettingsViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let enteredValue = textField.text else { return }
-        guard let textFieldValue = Float(enteredValue) else { return }
+        
+        guard let textFieldValue = Float(enteredValue) else {
+            showAlert(
+                title: "Invalid color value",
+                message: "Please, enter a value greater than zero and less than one.",
+                textField: textField
+            )
+            return
+        }
         
         guard textFieldValue >= 0.0 && textFieldValue <= 1.0 else {
             showAlert(
